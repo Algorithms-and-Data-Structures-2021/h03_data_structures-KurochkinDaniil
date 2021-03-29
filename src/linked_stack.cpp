@@ -14,23 +14,20 @@ void LinkedStack::Pop() {
   if (top_ == nullptr) {
     throw std::logic_error("cannot pop out from empty stack");
   }
-  auto *prev_node = top_ -> next;
-  delete top_;
-  top_ = prev_node;
-  size_ --;
+  else{
+      auto *prev_node = top_ -> next;
+      delete top_;
+      top_ = prev_node;
+      size_ --;
+  }
 }
 
 void LinkedStack::Clear() {
   auto curr_node = top_;
-  if (size_ == 1){
+  for (int i = 0; i < size_; i++){
+      auto  temp_node = curr_node -> next;
       delete curr_node;
-  }
-  else{
-      while (curr_node -> next != nullptr){
-          auto temp_node = curr_node -> next;
-          delete curr_node;
-          curr_node = temp_node;
-      }
+      curr_node = temp_node;
   }
   size_ = 0;
   top_ = nullptr;
