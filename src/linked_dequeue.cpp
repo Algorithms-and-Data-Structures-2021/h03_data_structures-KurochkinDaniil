@@ -37,7 +37,7 @@ void LinkedDequeue::Dequeue() {
     throw std::logic_error("cannot not dequeue from empty queue");
   }
   if (size_ == 1){
-      delete back_;
+      delete front_;
       back_ = nullptr;
       front_ = nullptr;
       size_ --;
@@ -56,7 +56,7 @@ void LinkedDequeue::DequeueBack() {
     throw std::logic_error("cannot not dequeue from empty queue");
   }
     if (size_ == 1){
-        delete back_;
+        delete front_;
         back_ = nullptr;
         front_ = nullptr;
         size_ --;
@@ -72,10 +72,15 @@ void LinkedDequeue::DequeueBack() {
 
 void LinkedDequeue::Clear() {
   auto curr_node = back_;
-  while (curr_node -> next != nullptr){
-    auto temp_node = curr_node -> next;
-    delete curr_node;
-    curr_node = temp_node;
+  if (size_ == 1){
+      delete curr_node;
+  }
+  else{
+      while (curr_node -> next != nullptr){
+          auto temp_node = curr_node -> next;
+          delete curr_node;
+          curr_node = temp_node;
+      }
   }
   size_ = 0;
   back_ = nullptr;
